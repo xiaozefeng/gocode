@@ -8,7 +8,7 @@ func channelDemo() {
 	var channels [10]chan int
 	for i := 0; i < 10; i++ {
 		channels[i] = make(chan int)
-		go worker(i, channels[i])
+		go work(i, channels[i])
 	}
 
 	for i := 0; i < 10; i++ {
@@ -20,7 +20,7 @@ func channelDemo() {
 	}
 }
 
-func worker(id int, c chan int) {
+func work(id int, c chan int) {
 	for {
 		fmt.Printf("Worker:%d received %c\n", id, <-c)
 	}

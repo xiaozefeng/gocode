@@ -1,15 +1,26 @@
 package tree
 
 type Node struct {
-	value       int
-	left, right *Node
+	Value       int
+	Left, Right *Node
 }
 
-func (n *Node) traversing(f func(*Node)) {
-	if n == nil{
+func (n *Node) Traversing(f func(*Node)) {
+	if n == nil {
 		return
 	}
-	n.left.traversing(f)
+	n.Left.Traversing(f)
 	f(n)
-	n.right.traversing(f)
+	n.Right.Traversing(f)
+}
+
+func (n *Node) TraversingWithChannel() chan *Node {
+	var result = make(chan *Node)
+	go func() {
+		n.Traversing(func(node *Node) {
+			result <- node
+		})
+		close(result)
+	}()
+	return result
 }
