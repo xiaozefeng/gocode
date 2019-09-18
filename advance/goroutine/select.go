@@ -20,6 +20,7 @@ func DoSelect() {
 	var c1, c2 = generator(), generator()
 	var worker = createWorker()
 	var values []int
+	var timeout = time.After(5 * time.Second)
 	for {
 		var activeWorker chan int
 		var activeValue int
@@ -36,6 +37,9 @@ func DoSelect() {
 			values = values[1:]
 		case <-time.Tick(500 * time.Microsecond):
 			fmt.Println("queue length:", len(values))
+		case <-timeout:
+			fmt.Println("bye")
+			return
 		}
 	}
 }
