@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
 )
 
 func main() {
-	db, err := gorm.Open("sqlite3", "test.db")
+	db, err := gorm.Open("mysql", "root:root@(127.0.0.1:3306)/goserver?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +29,6 @@ func main() {
 
 	// update
 	//db.Model(&product).Update("Price", 2000)
-
 }
 
 type Product struct {
